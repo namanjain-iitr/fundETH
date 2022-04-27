@@ -17,7 +17,7 @@ import Campaign from "./Campaign";
 export default function Campaigns() {
 
   const [campaigns, setCampaigns] = useState([])
-  
+  const date = new Date();
 
   useEffect(() => {
 
@@ -55,7 +55,8 @@ export default function Campaigns() {
                 // newData.push(projectData)
                 projectData.projectAddress = projectAddress
                 // setCampaigns([...campaigns, projectData])
-                setCampaigns(oldCampaigns => [...oldCampaigns, projectData])
+                if(projectData.deadline > date.getTime()/1000)
+                  setCampaigns(oldCampaigns => [...oldCampaigns, projectData])
                 //this.setState({ myArray: [...this.state.myArray, 'new value'] }) 
               });
           });
@@ -103,7 +104,7 @@ export default function Campaigns() {
               Title
             </chakra.span>
             <chakra.span fontSize="large" fontWeight="bold">
-              Days Left
+              Hours Left (HH:MM)
             </chakra.span>
             <chakra.span fontSize="large" fontWeight="bold">
               Amount Raised
