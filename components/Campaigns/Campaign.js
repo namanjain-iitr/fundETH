@@ -1,3 +1,5 @@
+// {((token.deadline-date.getTime()/1000)/3600).toPrecision(4)}
+
 import {
   Button,
   Flex,
@@ -21,6 +23,18 @@ const Campaign = ({ token }) => {
 
   console.log("Campaign is called");
   console.log(token);
+
+  String.prototype.toHHMMSS = function () {
+    var sec_num = parseInt(this, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return hours+':'+minutes;
+  }
 
   const onClick = () => {
     console.log("donationAmount :>> ", donationAmount);
@@ -77,7 +91,10 @@ const Campaign = ({ token }) => {
           overflow="hidden"
           whiteSpace="nowrap"
         >
-          {/* {token.deadline} */ (token.deadline-date.getTime()/1000)/3600}
+          
+
+          {(token.deadline-date.getTime()/1000).toString().toHHMMSS()}
+
         </chakra.span>
         <Flex>
           <Button
